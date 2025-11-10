@@ -2,6 +2,7 @@ package br.atitus.edu.api_example.controllers;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,5 +29,13 @@ public class AuthController {
 		
 		return ResponseEntity.status(201).body(user);
 
+	}
+	
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<String> exceptionHnadler(Exception e){
+		String message = e.getMessage().replaceAll("\r\n","");
+		return ResponseEntity.badRequest().body(message);
+		
+		
 	}
 }
